@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, TextField, Button, Typography } from "@mui/material";
 
-const Login = () => {
+const Register = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // Simula autenticação (implemente backend posteriormente)
-    if (email && password) {
+  const handleRegister = () => {
+    // Simula criação de conta
+    if (name && email && password) {
       localStorage.setItem("user", email);
       navigate("/dashboard");
     }
@@ -25,8 +26,14 @@ const Login = () => {
       }}
     >
       <Typography variant="h4" gutterBottom>
-        Login
+        Registrar
       </Typography>
+      <TextField
+        label="Nome"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        sx={{ mb: 2, width: "300px" }}
+      />
       <TextField
         label="E-mail"
         value={email}
@@ -40,11 +47,11 @@ const Login = () => {
         onChange={(e) => setPassword(e.target.value)}
         sx={{ mb: 2, width: "300px" }}
       />
-      <Button variant="contained" color="primary" onClick={handleLogin}>
-        Entrar
+      <Button variant="contained" color="primary" onClick={handleRegister}>
+        Registrar
       </Button>
     </Box>
   );
 };
 
-export default Login;
+export default Register;
