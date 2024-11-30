@@ -1,1 +1,0 @@
-instalar drive do postgre: npm install pg
