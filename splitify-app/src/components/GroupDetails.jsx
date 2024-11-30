@@ -1,78 +1,58 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  List,
-  ListItem,
-  ListItemText,
-  TextField,
-  Typography,
-} from "@mui/material";
+import Navbar from "./Navbar";
+import { Box, Typography, Button, List, ListItem, ListItemText, TextField, Paper } from "@mui/material";
 
 const GroupDetails = () => {
   const [expenses, setExpenses] = useState([
-    { description: "Mercado", amount: 100 },
-    { description: "Gasolina", amount: 50 },
+    { id: 1, description: "Aluguel", amount: 500 },
+    { id: 2, description: "Supermercado", amount: 200 },
   ]);
-
   const [newExpense, setNewExpense] = useState({ description: "", amount: "" });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewExpense({ ...newExpense, [name]: value });
-  };
 
   const handleAddExpense = () => {
     if (newExpense.description && newExpense.amount) {
-      setExpenses([...expenses, newExpense]);
+      setExpenses([...expenses, { id: expenses.length + 1, ...newExpense }]);
       setNewExpense({ description: "", amount: "" });
     }
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 5 }}>
-      <Typography variant="h4" align="center" gutterBottom>
-        Detalhes do Grupo
-      </Typography>
-      <List>
-        {expenses.map((expense, index) => (
-          <ListItem key={index}>
-            <ListItemText
-              primary={expense.description}
-              secondary={`Valor: R$${expense.amount}`}
-            />
-          </ListItem>
-        ))}
-      </List>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          mt: 3,
-        }}
-      >
-        <TextField
-          label="Descrição"
-          variant="outlined"
-          name="description"
-          value={newExpense.description}
-          onChange={handleChange}
-        />
-        <TextField
-          label="Valor"
-          variant="outlined"
-          type="number"
-          name="amount"
-          value={newExpense.amount}
-          onChange={handleChange}
-        />
-        <Button variant="contained" onClick={handleAddExpense}>
-          Adicionar Despesa
-        </Button>
+    <>
+      <Navbar />
+      <Box sx={{ p: 4, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
+        <Typography variant="h4" sx={{ fontWeight: "bold", mb: 3 }}>
+          Detalhes do Grupo
+        </Typography>
+        <Paper sx={{ p: 2, mb: 3, boxShadow: "0 3px 6px rgba(0,0,0,0.1)" }}>
+          <List>
+            {expenses.map((expense) => (
+              <ListItem key={expense.id} sx={{ borderBottom: "1px solid #e0e0e0" }}>
+                <ListItemText
+                  primary={expense.description}
+                  secondary={`R$ ${expense.amount}`}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Paper>
+        <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
+          <TextField
+            label="Descrição"
+            value={newExpense.description}
+            onChange={(e) => setNewExpense((prev) => ({ ...prev, description: e.target.value }))}
+          />
+          <TextField
+            label="Valor"
+            type="number"
+            value={newExpense.amount}
+            onChange={(e) => setNewExpense((prev) => ({ ...prev, amount: e.target.value }))}
+          />
+          <Button variant="contained" onClick={handleAddExpense}>
+            Adicionar
+          </Button>
+        </Box>
       </Box>
-    </Container>
+    </>
   );
 };
 

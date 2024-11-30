@@ -5,42 +5,21 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import GroupDetails from "./components/GroupDetails";
-import ProtectedLayout from "./layouts/ProtectedLayout";
-import ProtectedRoute from "./components/ProtectedRoute";
+import SaibaMais from "./components/SaibaMais";
 
-const App = () => {
+function App() {
   return (
     <Router>
       <Routes>
-        {/* Páginas públicas */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
-        {/* Páginas protegidas */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                <Dashboard />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/groups/:id"
-          element={
-            <ProtectedRoute>
-              <ProtectedLayout>
-                <GroupDetails />
-              </ProtectedLayout>
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/groups/:id" element={<GroupDetails />} />
+        <Route path="/saibamais" element={<SaibaMais />} />
       </Routes>
     </Router>
   );
-};
+}
 
 export default App;

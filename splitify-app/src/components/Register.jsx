@@ -11,8 +11,9 @@ const Register = () => {
   const handleRegister = () => {
     // Simula criação de conta
     if (name && email && password) {
-      localStorage.setItem("user", email);
-      navigate("/dashboard");
+      // Simula salvamento de dados
+      console.log("Usuário registrado:", { name, email });
+      navigate("/login"); // Redireciona para a página de login
     }
   };
 
